@@ -158,6 +158,7 @@ namespace laba5
             label1.Text = "Кол-во ошибок: ";
             dataGridView1.Rows.Clear();//*
             dataGridView2.Rows.Clear();//*
+            richTextBox1.Text = "";
 
             foreach (Lexeme lexeme in lexemes)
             {
