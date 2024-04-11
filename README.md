@@ -17,3 +17,5 @@ k=-g--f+-d*-c/-c+e;<br>
 <img src="ex2.png">
 <img src="ex3.png">
 <img src="ex4.png">
+<img src="ex5.png">
+<img src="ex6.png">
