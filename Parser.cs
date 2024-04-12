@@ -275,22 +275,55 @@ namespace laba5
         {
             try
             {
+                int res = 0;
 
-                if ((lexemes[position].Type == LexemeType.Plus)|| (lexemes[position].Type == LexemeType.Minus)|| (lexemes[position].Type == LexemeType.Mult)|| (lexemes[position].Type == LexemeType.Div))
+                for (int u = position; u < lexemes.Count; u++)
                 {
-                    str += lexemes[position].Token;
-                    position++;
-                    NUM(dataGridView1);
+                    if (lexemes[u].Type == LexemeType.Plus || lexemes[u].Type == LexemeType.Minus || lexemes[u].Type == LexemeType.Mult || lexemes[u].Type == LexemeType.Div)
+                    {
+                        res = 1;
+                        break;
+                    }
+
+                }
+
+                if (res == 0)
+                {
+                    //dataGridView1.Rows.Add($"Ошибка синтаксиса в позиции {lexemes[position].StartPosition}: ожидался ключевое слово 'const'");
+                    //dataGridView1.Rows.Add("Ожидалась буква", lexemes[position].StartPosition);
+                    //counter++;
+                    END(dataGridView1);
                 }
                 else
                 {
-                    END(dataGridView1);
-                }
 
+                    if ((lexemes[position].Type == LexemeType.Plus) || (lexemes[position].Type == LexemeType.Minus) || (lexemes[position].Type == LexemeType.Mult) || (lexemes[position].Type == LexemeType.Div))
+                    {
+                        str += lexemes[position].Token;
+                        position++;
+                        NUM(dataGridView1);
+                    }
+                    else if (lexemes[position].Type == LexemeType.Invalid)
+                    {
+                        dataGridView1.Rows.Add($"Недопустимый символ '{lexemes[position].Token}'", lexemes[position].StartPosition);
+
+                        position++;
+                        counter++;
+                        SIGN(dataGridView1);
+                    }
+                    else if (lexemes[position].Type != LexemeType.Plus && lexemes[position].Type != LexemeType.Minus && lexemes[position].Type != LexemeType.Mult && lexemes[position].Type != LexemeType.Div)
+                    {
+                        dataGridView1.Rows.Add($"Cимвол '{lexemes[position].Token}'", lexemes[position].StartPosition);
+                        position++;
+                        counter++;
+                        SIGN(dataGridView1);
+                    }
+
+                }
             }
             catch (ArgumentOutOfRangeException)
             {
-            dataGridView1.Rows.Add($"Упс... Кажется чего-то не хватает...");
+                dataGridView1.Rows.Add($"Упс... Кажется чего-то не хватает...");
                 counter++;
             }
 
